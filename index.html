@@ -1,0 +1,189 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интернет-технологии: Белов В.А.</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <style>
+      body {
+       background-color: #fafafa;
+       font-family: Consolas;
+       font-size: 18px;
+       color:#2A2A2A;
+      }
+
+      .inner {
+  display: table;
+  margin: 0 auto;
+}
+
+.outer {
+  width:100%
+}
+     </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow navbar-dark" style="background-color: #202020;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="./index.html">
+                <img src="./img/nav_logo.svg" alt="" width="24" height="24" class="d-inline-block align-text-top">
+                    Интернет-технологии</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="nav nav-pills flex-column flex-sm-row">
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" style="color:#afefff" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Лабораторные работы
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Первая лабораторная</a></li>
+                      <li><a class="dropdown-item" href="#">Вторая лабораторная</a></li>
+                      <li><a class="dropdown-item" href="#">Третья лабораторная</a></li>
+                    </ul>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" style="color:#afefff" href="#">Экз. билет</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" style="color:#afefff" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                        Информация об авторе
+                      </a>
+                  </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container-fluid" style="margin-top: 10px;">
+    
+      <div class="outer">
+      <div class="btn-group inner" role="group" aria-label="Basic outlined example">
+        <button type="button" class="btn btn-outline-primary" onclick="open1()">Лабораторная 1</button>
+        <button type="button" class="btn btn-outline-primary" onclick="open2()">Лабораторная 2</button>
+        <button type="button" class="btn btn-outline-primary" onclick="open3()">Лабораторная 3</button>
+        <button type="button" class="btn btn-outline-primary" onclick="openExam()">Билет</button>
+      </div>
+      </div>
+
+      <div class="row row-cols-1 g-4" style="margin-top: 10px;">
+        <div class="col" style="display: none; margin-left: 25%;" id="lab1Card">
+            <div class="card h-100 w-50 border-info">
+                <div class="card-header">
+                    <h5 class="card-title">Первая лабораторная</h5>
+                    <img src="./img/first_lab.jpg" height="300" class="card-img-top" alt="">
+                </div>
+                <div class="card-body">
+                  <p class="card-text">Работа с GitHub:</p>
+                  <ol>
+                      <li>Регистрация в GitHub.</li>
+                      <li>Создание репозитория.</li>
+                      <li>Создание личной страницы.</li>
+                      <li>Размещение кода исходной страницы в репозитории.</li>
+                      <li>Размещение странички на хостинге. </li>
+                  </ol>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <a href="https://github.com/Vladosicc/inet-techn" class="card-link">Ссылка на репозиторий</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#" class="card-link">Ссылка на страницу</a>
+                    </li>
+                </ul>
+                <div class="card-footer">
+                    <small class="text-muted">Белов В.А. ИДМ-22-02</small>
+                </div>
+            </div>
+        </div>
+        <div class="col" style="display: none; margin-left: 25%;" id="lab2Card">
+           <div class="card h-100 w-50 border-info">
+                <div class="card-header">
+                    <h5 class="card-title">Вторая лабораторная</h5>
+                    <img src="./img/second_lab.jpg" height="300" class="card-img-top" alt="В разработке">
+                </div>
+                <div class="card-body">
+                  <p class="card-text">Разработка простого веб-приложения (html,css,js):</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <a href="#" class="card-link">Ссылка на решение</a>
+                    </li>
+                </ul>
+                <div class="card-footer">
+                    <small class="text-muted">Белов В.А. ИДМ-22-02</small>
+                </div>
+            </div>
+        </div>
+        <div class="col" style="display: none; margin-left: 25%;" id="lab3Card">
+          <div class="card h-100 w-50 border-info">
+                <div class="card-header">
+                    <h5 class="card-title">Третья лабораторная</h5>
+                    <img src="./img/second_lab.jpg" height="300" class="card-img-top" alt="В разработке">
+                </div>
+                <div class="card-body">
+                  <p class="card-text">#Тема третьей лабораторной:</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <a href="#" class="card-link">Ссылка на решение</a>
+                    </li>
+                </ul>
+                <div class="card-footer">
+                    <small class="text-muted">Белов В.А. ИДМ-22-02</small>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid" style="margin-top: 15px; display: none;" id="examCard">
+    <div class="card mb-3 w-100 border-dark">
+        <div class="row g-0">
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">Экзаминационный билет</h5>
+              <p class="card-text">
+                <a href="#" class="card-link">Ссылка на билет №15</a>
+              </p>
+              <p class="card-text"><small class="text-muted">Белов В.А. ИДМ-22-02</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+            <img src="./img/logo_ru.svg" alt="" width="200" height="200" class="d-inline-block align-text-top">
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
+          </div>
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasExampleLabel">Белов Владислав Андреевич</h5>
+        </div>
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Группа: ИДМ-22-02</h5>
+        </div>
+        <div class="offcanvas-body">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+              Лабораторные
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <li><a class="dropdown-item" href="#">Первая</a></li>
+              <li><a class="dropdown-item" href="#">Вторая</a></li>
+              <li><a class="dropdown-item" href="#">Третья</a></li>
+            </ul>
+          </div>
+          <div class="dropdown mt-3">
+            <a class="btn btn-primary" href="#">Экз. билет</a>
+          </div>
+        </div>
+      </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+      <script type = "text/javascript" src="./script/main.js"></script>
+</body>
+</html>
