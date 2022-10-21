@@ -23,16 +23,15 @@
      </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow navbar-dark" style="background-color: #202020;">
+    <nav class="navbar navbar-expand-lg navbar-toggleable-sm border-bottom box-shadow navbar-dark" style="background-color: #202020;">
         <div class="container-fluid">
             <a class="navbar-brand" href="./index.html">
                 <img src="./img/nav_logo.svg" alt="" width="24" height="24" class="d-inline-block align-text-top">
                     Интернет-технологии</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="nav nav-pills flex-column flex-sm-row">
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" style="color:#afefff" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,8 +68,8 @@
       </div>
 
       <div class="row row-cols-1 g-4" style="margin-top: 10px;">
-        <div class="col" style="display: none; margin-left: 25%;" id="lab1Card">
-            <div class="card h-100 w-50 border-info">
+        <div class="col outer" style="display: none;" id="lab1Card">
+          <div class="card h-100 w-50 border-info inner" style="min-width: 500px; max-width: max-content;">
                 <div class="card-header">
                     <h5 class="card-title">Первая лабораторная</h5>
                     <img src="./img/first_lab.jpg" height="300" class="card-img-top" alt="">
@@ -98,8 +97,8 @@
                 </div>
             </div>
         </div>
-        <div class="col" style="display: none; margin-left: 25%;" id="lab2Card">
-           <div class="card h-100 w-50 border-info">
+        <div class="col outer" style="display: none;" id="lab2Card">
+          <div class="card h-100 w-50 border-info inner" style="min-width:500px">
                 <div class="card-header">
                     <h5 class="card-title">Вторая лабораторная</h5>
                     <img src="./img/sec_lab.jpg" height="300" class="card-img-top" alt="В разработке">
@@ -119,8 +118,8 @@
                 </div>
             </div>
         </div>
-        <div class="col" style="display: none; margin-left: 25%;" id="lab3Card">
-          <div class="card h-100 w-50 border-info">
+        <div class="col outer" style="display: none;" id="lab3Card">
+          <div class="card h-100 w-50 border-info inner" style="min-width:500px">
                 <div class="card-header">
                     <h5 class="card-title">Третья лабораторная</h5>
                     <img src="./img/th_lab.jpg" height="300" class="card-img-top" alt="В разработке">
