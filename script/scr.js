@@ -2,9 +2,11 @@
         function calc()
         {
         var _a = parseFloat(document.getElementById("a_coeff").value);
-        var _b = parseFloat(document.getElementById("b_coeff").value)
-        var _c = parseFloat(document.getElementById("c_coeff").value)
-        var _d = parseFloat(document.getElementById("d_coeff").value)
+        var _b = parseFloat(document.getElementById("b_coeff").value);
+        var _c = parseFloat(document.getElementById("c_coeff").value);
+        var _d = parseFloat(document.getElementById("d_coeff").value);
+
+        var tmax = parseFloat(document.getElementById("tmax").value);
 
         var step = 0.01;
         var Result_P = [];
@@ -12,7 +14,7 @@
         var Result_V = [];
         Result_V[0] = parseFloat(document.getElementById("v0").value);
         var t = [];
-        for(let i = 0; i < 4000; i++)
+        for(let i = 0; i < tmax * 100; i++)
         {
             t[i] = i * step;
             Result_V[i+1] = CalcRK1(step, _a, _b, Result_V[i], Result_P[i]);
