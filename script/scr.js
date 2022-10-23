@@ -12,23 +12,11 @@
         var Result_V = [];
         Result_V[0] = parseFloat(document.getElementById("v0").value);
         var t = [];
-        var k1, k2, k3, k4;
         for(let i = 0; i < 4000; i++)
         {
             t[i] = i * step;
-            //func1
-            k1 = step * func1(Result_P[i], Result_V[i], _a, _b);
-            k2 = step * func1(Result_P[i], Result_V[i] + k1/2., _a, _b);
-            k3 = step * func1(Result_P[i], Result_V[i] + k2/2., _a, _b);
-            k4 = step * func1(Result_P[i], Result_V[i] + k3, _a, _b);
-            Result_P[i + 1] = Result_P[i] + (1. / 6.) * (k1 + 2 * k2 + 2 * k3 + k4);
-
-            //func2
-            k1 = step * func2(Result_P[i], Result_V[i], _c, _d);
-            k2 = step * func2(Result_P[i] + k1/2., Result_V[i], _c, _d);
-            k3 = step * func2(Result_P[i] + k2/2., Result_V[i], _c, _d);
-            k4 = step * func2(Result_P[i] + k3, Result_V[i], _c, _d);
-            Result_V[i + 1] = Result_V[i] + (1. / 6.) * (k1 + 2 * k2 + 2 * k3 + k4);
+            Result_V[i+1] = CalcRK1(step, _a, _b, Result_V[i], Result_P[i]);
+            Result_P[i+1] = CalcRK2(step, _c, _d, Result_V[i], Result_P[i]);
             t[i+1] = (i+1) * step;
         }
 
@@ -55,7 +43,7 @@
 
         var chart = new google.visualization.LineChart(document.getElementById('chart1'));
         var chart2 = new google.visualization.LineChart(document.getElementById('chart2'));
-        for(let i = 0; i < 10000; i++)
+        for(let i = 0; i < t.length; i++)
         {
             data.addRow([
                 t[i], Result_P[i], Result_V[i]
@@ -69,12 +57,31 @@
         chart2.draw(data2, options2);
         }
 
-        function func1(V, P, _a, _b)
+        function CalcRK1(h, a, b, y1, y2)
         {
-            return (_a - _b * P) * V;
+            var k1 = h * func1(a, b, y1, y2);
+            var k2 = h * func1(a, b, y1 + k1 * (h / 2.0), y2);
+            var k3 = h * func1(a, b, y1 + k2 * (h / 2.0), y2);
+            var k4 = h * func1(a, b, y1 + k3 * (h / 2.0), y2);
+            return y1 + (k1 + 2.0 * k2 + 2.0 * k3 + k4) / 6.0;
         }
 
-        function func2(V, P, _c, _d)
+        function CalcRK2(h, c, d, y1, y2)
         {
-            return (-_c + _d * V) * P;
+            var k1 = h * func2(c, d, y1, y2);
+            var k2 = h * func2(c, d, y1, y2 + k1 * (h / 2.0));
+            var k3 = h * func2(c, d, y1, y2 + k2 * (h / 2.0));
+            var k4 = h * func2(c, d, y1, y2 + k3 * (h / 2.0));
+            return y2 + (k1 + 2.0 * k2 + 2.0 * k3 + k4) / 6.0;
+
+        }
+
+        function func1(a, b, V, P)
+        {
+            return (a * V - b * P * V);
+        }
+
+        function func2(c, d, V, P)
+        {
+            return (-c * P + d * V * P);
         }
