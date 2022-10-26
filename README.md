@@ -18,5 +18,12 @@
 
 ## Лабораторная 3
 
+Работа с Сisco Packet Tracer.
+
+Материалы о выполнении лабораторной работы:
+* Проект: [Project](https://github.com/Vladosicc/inet-techn)
+* Информация о конфигурации устройств: [Device Configuration Information](https://github.com/Vladosicc/inet-techn)
+* Сценарий для настройки устройств: [Command script in cisco](https://github.com/Vladosicc/inet-techn)
+
 ## Экзаменационный билет №15
 Ответ на экзаменационный [билет 15](https://github.com/stankin/inet-2022/wiki/exam15)

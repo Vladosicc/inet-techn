@@ -1,0 +1,152 @@
+1. Расчёт IP-адресов и настройка локальных сетей
+
+Выполнить расчет основных сетевых параметров для сетей VLAN A, VLAN B, VLAN C и VLAN D 
+исходя из известного количества узлов в каждой из них, 
+а также известного диапазона адресов для внутренней сети: 
+10.5.0.0/16. 
+
+Для служебных сетей, соединяющих между собой маршрутизаторы, использовать любые подсети 
+из того же диапазона, размеры данных подсетей выбрать минимально возможными. 
+
+Для сети с серверами использовать сеть 192.168.0.0/16.
+Присвоить номера и наименования виртуальным сетям. 
+
+Наименование VLAN задать в формате #Фамилия. Номера виртуальных сетей:
+* для сети VLAN A = 20;
+* для сети VLAN B = 21;
+* для сети VLAN C = 22;
+* для сети VLAN D = 23.
+
+Выполнить настройку компьютеров (настроить IP-адрес, маску подсети и шлюз по умолчанию). 
+
+Задать компьютерам IP-адреса из соответствующих диапазонов. 
+Использовать для компьютеров максимальные IP-адреса из доступных. 
+Компьютеры распределить по виртуальным сетям следующим образом: 
+PC1 – Vlan A, PC2 – Vlan B, PC3 – Vlan C, PC4 – Vlan D.
+
+Выполнить настройку серверов:
+* DNS: 192.168.1.2;
+* HTTP local: 192.168.5.254 (http://local.com);
+* HTTP public: 192.168.6.254 (http://public.com).
+
+Используя вкладку Services, убедиться, что на серверах настроены необходимые службы: 
+dns и веб-сервер.
+
+На вкладке Services/DNS добавить dns-записи для серверов public, local и external, 
+установив соответствие между их IP-адресами и доменными именами.
+
+На вкладке Services/HTTP произвольно отредактировать веб-страницы серверов public и local. 
+
+Обязательное требование к веб-страницам: должны отображаться ФИО студента, номер группы
+и варианта.
+
+2. Настройка устройств
+
+Выполнить первоначальную настройку маршрутизаторов.
+
+Настроить виртуальные локальные сети. 
+Обратите внимание, что виртуальные сети в этом сценарии создаются на коммутаторах отдельно, 
+протокол vtp работать не будет, т.к. коммутаторы разделены маршрутизатором Router B.
+
+Настроить интерфейсы и суб-интерфейсы на маршрутизаторах. 
+
+В локальных сетях использовать минимальные IP-адреса из доступных. 
+
+В остальных подсетях использовать минимальный адрес для маршрутизатора 
+с меньшим порядковым номером.
+
+3. Настройка маршрутизации
+
+Настроить маршрутизацию любым способом (статическая, RIP, OSPF; 
+обязательно отключить автосуммирование маршрутов).
+
+4. Настройка ACL
+
+Руководствуясь правилами, приведенными в начале раздела 5.3, настроить на маршрутизаторах 
+списки контроля доступа, ограничив трафик следующим образом:
+* Пользователям из VLAN A должен быть разрешен доступ по любому протоколу к любым узлам 
+сети, в т.ч. к сети Интернет.
+* Пользователям из VLAN B должны иметь доступ к сети Интернет и к серверам PUBLIC и DNS 
+по протоколам http и dns соответственно. Доступ к серверу LOCAL должен быть закрыт.
+* Пользователям из VLAN C должен быть доступен только сервер LOCAL по протоколу http.
+* Пользователям VLAN D должен быть доступен только Интернет, к серверам LOCAL и PUBLIC 
+доступ должен быть закрыт.
+* Между виртуальными сетями должен быть разрешен трафик протокола icmp.
+* Из сети Интернет должен быть открыт доступ только по протоколам dns и http и только 
+к серверам DNS и PUBLIC.
+
+Router B:
+
+Router>en
+Router#conf t
+Router(config)#ip access-list extended VLAN 20 [Мы используем расширенные списки контроля доступа]
+Router(config-ext-nacl)#permit icmp any any [разрешаем трафик протокола icmp между сетями]
+Router(config-ext-nacl)#permit ip 10.5.2.128 0.0.0.127 any [ip и mac vlan А, куда хотим расрешить доступ]
+
+Router(config-ext-nacl)#ip access-list extended VLAN 21
+Router(config-ext-nacl)#permit icmp any any
+Router(config-ext-nacl)#deny ip 10.5.0.0 0.0.1.255 10.5.2.128 0.0.0.127 [запрещаем трафик из vlan B в vlan A]
+Router(config-ext-nacl)#deny ip 10.5.0.0 0.0.1.255 10.5.2.0 0.0.0.127 [запрещаем трафик из vlan B в vlan C]
+Router(config-ext-nacl)#deny ip 10.5.0.0 0.0.1.255 10.5.3.0 0.0.0.7 [запрещаем трафик из vlan B в vlan D]
+Router(config-ext-nacl)#permit ip 10.5.0.0 0.0.1.255 any [разрешаем трафик из vlan B, в интернет]
+[в начале стоят три deny, а потом permit. Список контроля доступа всегда читается сверху вниз до первого срабатывания]
+
+Router(config-ext-nacl)#ip access-list extended VLAN 22
+Router(config-ext-nacl)#permit icmp any any
+Router(config-ext-nacl)#permit ip 10.5.2.0 0.0.0.127 host 192.168.5.254 [разрешаем трафик из vlan D в local]
+
+Router(config-ext-nacl)#ip access-list extended VLAN 23
+Router(config-ext-nacl)#permit icmp any any
+Router(config-ext-nacl)#deny ip 10.5.3.0 0.0.0.7 host 192.168.5.254
+Router(config-ext-nacl)#deny ip 10.5.3.0 0.0.0.7 host 192.168.6.254
+Router(config-ext-nacl)#permit udp 10.5.3.0 0.0.0.7 host 192.168.1.2 eq domain
+Router(config-ext-nacl)#permit ip 10.5.3.0 0.0.0.7 any
+Router(config-ext-nacl)#exit
+Router(config)#int f7/0.20 [vlan A]
+Router(config-subif)#ip access-group VLAN_A in [in - для входящих пакетов (из сети на маршрутизатор), out - для исходящих пакетов]
+Router(config-subif)#int f7/0.21 [vlan B]
+Router(config-subif)#ip access-group VLAN_B in 
+Router(config-subif)#int f8/0.22 [vlan C]
+Router(config-subif)#ip access-group VLAN_C in 
+Router(config-subif)#int f8/0.23 [vlan D]
+Router(config-subif)#ip access-group VLAN_D in 
+
+Настройка DNS Server: [DNS->Services->DNS]
+
+name: local.com
+address: 192.168.100.3 [берем ip local server]
+
+name: public.com
+address: 192.168.100.4 [берем ip public server]
+
+name: internet.com
+address: 56.13.243.253 [берем ip external server]
+
+[доступ к серверам проверяется с помощью web-браузера PC->Desktop->WebBrowser->local.com->go]
+
+Router A:
+
+Router>en
+Router#conf t
+Router(config)#ip access-list ext BORDER
+Router(config-ext-nacl)#permit tcp any host 192.168.6.254 eq www [ардрес источника - интернет - any, адрес назначение - public, порт 80-http]
+Router(config-ext-nacl)#permit udp any host 192.168.1.2 eq domain [ардрес источника - интернет - any, адрес назначение - dns]
+Router(config-ext-nacl)#permit tcp any any established [разрешить весь tcp-трафик, если соединение уже установлено. Мы разрешаем все tcp-сессии, которые были установлены изнутри, когда пользователи подключаются к интернету, сервера могут присылать им ответы, без этого правила router A будет блочить сервера]
+
+Router(config-ext-nacl)#ip access-list ext SERVERS
+Router(config-ext-nacl)#permit ip 10.5.2.128 0.0.0.127 any [из vlan A разрешить все]
+Router(config-ext-nacl)#permit tcp 10.5.0.0 0.0.1.255 host 192.168.6.254 eq www [из vlan B разрешить только public server]
+Router(config-ext-nacl)#permit udp 10.5.0.0 0.0.1.255 host 192.168.1.2 eq domain [из vlan B разрешить только dns server]
+Router(config-ext-nacl)#deny ip 10.5.0.0 0.0.1.255 any
+Router(config-ext-nacl)#permit tcp 10.5.2.0 0.0.0.127 host 192.168.5.254 eq www [из vlan C разрешить только local server]
+Router(config-ext-nacl)#permit tcp any host 192.168.8.254 eq www [разрешить трафик из интернета к public]
+Router(config-ext-nacl)#permit udp any host 192.168.1.2 eq domain [разрешить трафик из интернета к dns]
+Router(config-ext-nacl)#deny ip 10.5.2.0 0.0.0.255 any
+Router(config-ext-nacl)#permit tcp 10.5.3.0 0.0.0.7 host 192.168.5.254 eq www
+Router(config-ext-nacl)#deny ip 10.5.3.0 0.0.0.7 any
+Router(config-ext-nacl)#exit
+
+Router(config)#int f6/0 [интернет]
+Router(config-if)#ip access-group BORDER in
+Router(config-if)#int f7/0 [dns, local, public]
+Router(config-if)#ip access-group SERVERS out
