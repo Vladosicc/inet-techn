@@ -26,4 +26,6 @@
 * Сценарий для настройки устройств: [Command script in cisco](https://github.com/Vladosicc/inet-techn/blob/main/CiscoLab/setup.txt)
 
 ## Экзаменационный билет №15
-Ответ на экзаменационный [билет 15](https://github.com/stankin/inet-2022/wiki/exam15) - [Committed](https://github.com/stankin/inet-2022/wiki/exam15/_compare/408a6e85845dc7d098f5cc742e84032520126ca3)
+Ответ на экзаменационный [билет 15](https://github.com/stankin/inet-2022/wiki/exam15) 
+
+[Committed](https://github.com/stankin/inet-2022/wiki/exam15/_compare/408a6e85845dc7d098f5cc742e84032520126ca3)
